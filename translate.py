@@ -20,9 +20,9 @@ while True:
     if a == '1':
           #@Prompt User to input Target Language
         print("...................................................Translator..........................................................................................")
-        slanguage = input("Please input the Source Language(Acholi, Runyankole, Luganda, English):\n")
+        slanguage = input("Please input the Source Language(English, Luganda, Runyankole, Ateso, Lugbara or Acholi):\n")
         print("================================================================\n")
-        tlanguage = input("Please input the Target Language(Acholi, Runyankole, Luganda, English):\n")
+        tlanguage = input("Please input the Target Language(English, Luganda, Runyankole, Ateso, Lugbara or Acholi):\n")
         print("================================================================\n")        
         transText = input("Input the text you want to translate below 200 Characters.\n")
         print("================================================================\n================================================================")
