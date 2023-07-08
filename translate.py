@@ -35,7 +35,7 @@ while True:
             "target_language": tlanguage,
             "text": transText
         }
-
+        #kfkf
         #The requests.post() function returns a Response object. 
         #The code checks the status code of the Response object
         response = requests.post(f"{url}/tasks/translate", headers=headers, json=payload)
