@@ -1,20 +1,30 @@
+from dotenv import load_dotenv
 import requests
-#This line defines the URL of the Sunbird AI API.
-url = 'https://sunbird-ai-api-5bq6okiwgq-ew.a.run.app'
-auth_type = 'token'  #@param ["token", "login-credentials"]
-token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJJbnRlcm5zaGlwcyIsImV4cCI6NDg0MTQ4NzEyMn0.-j3rdudJ9pXEm3-456LLiDPun5SwIm5sw-RoNvgDwfk'
+import os
 
-headers = {
-    "Authorization": f"Bearer {token}",
-    "Content-Type": "application/json"
-}
+#This line defines the URL of the Sunbird AI API.
+
+auth_type = 'token'  #@param ["token", "login-credentials"]
+
+
+
 def treq(slang,tlang,ttext):  
+    url = 'https://sunbird-ai-api-5bq6okiwgq-ew.a.run.app'
+    load_dotenv()
+    token = os.environ.get('API_KEY')
+
+    headers = {
+        "Authorization": f"Bearer {token}",
+        "Content-Type": "application/json"
+    }
     payload = {
             "source_language": slang,
             "target_language": tlang,
             "text": ttext
     }
-    return payload
+    response = requests.post(f"{url}/tasks/translate", headers=headers, json=payload)
+    translated_text = response.json()["text"]
+    return translated_text
 #
 while True:
   try:
@@ -33,20 +43,15 @@ while True:
         #This code defines the payload object that will be sent with the HTTP request. 
         #The payload object contains the source language, target language, and text to translate. 
          
-        if slanguage != "English" and tlanguage != "English":    
-            response = requests.post(f"{url}/tasks/translate", headers=headers, json=treq(slanguage, "English", transText))
-           
-            transtext1 = response.json()["text"]
+        if slanguage == "English" or tlanguage == "English":
+            translated_text = treq(slanguage, tlanguage, transText)
             
-            response = requests.post(f"{url}/tasks/translate", headers=headers, json=treq("English", tlanguage, transtext1))
         else:
-          response = requests.post(f"{url}/tasks/translate", headers=headers, json=treq(slanguage, tlanguage, transText))
-
-        if response.status_code == 200:
-          translated_text = response.json()["text"]
-          print("Translated text: ", translated_text)
-        else:
-          print("Error: ", response.status_code, response.text)
+            transint = treq(slanguage, "English", transText)
+            engTra = str(transint)
+            translated_text = treq("English", tlanguage, engTra)           
+                         
+        print("Translated text: ", translated_text)
     else:
       print("Thank you") 
       break
