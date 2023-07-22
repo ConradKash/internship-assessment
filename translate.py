@@ -18,6 +18,7 @@ def treq(slang,tlang,ttext):
         "Content-Type": "application/json"
     }
     payload = {
+  
             "source_language": slang,
             "target_language": tlang,
             "text": ttext
@@ -43,17 +44,12 @@ while True:
         #This code defines the payload object that will be sent with the HTTP request. 
         #The payload object contains the source language, target language, and text to translate. 
          
-        if slanguage == "English" or tlanguage == "English":
-            translated_text = treq(slanguage, tlanguage, transText)
-            
-        else:
-            transint = treq(slanguage, "English", transText)
-            engTra = str(transint)
-            translated_text = treq("English", tlanguage, engTra)           
-                         
+        translated_text = treq(slanguage, tlanguage, transText)
+         
+                
         print("Translated text: ", translated_text)
     else:
       print("Thank you") 
       break
-  except ValueError:
-    print("Enter correct texts for translation")
+  except ValueError:5
+  print("Enter correct texts for translation")
